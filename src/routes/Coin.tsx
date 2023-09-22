@@ -141,6 +141,8 @@ interface PriceData {
   };
 }
 
+interface ICoinProps {}
+
 function Coin() {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
@@ -178,13 +180,9 @@ function Coin() {
   const loading = infoLoading || tickerLoading;
   return (
     <Container>
-      <HelmetProvider>
-        <Helmet>
-          <title>
-            {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
-          </title>
-        </Helmet>
-      </HelmetProvider>
+      <title>
+        {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+      </title>
       <Header>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
