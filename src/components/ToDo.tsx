@@ -1,32 +1,8 @@
-import { useSetRecoilState } from "recoil";
-import { IToDo, toDoState } from "./atoms";
-
-function ToDo({ text, category, id }: IToDo) {
-  const setToDos = useSetRecoilState(toDoState);
-  const onClick = (newCategory: IToDo["category"]) => {
-    console.log("i wanna to ", newCategory);
-  };
-  return (
-    <li>
-      <span>{text}</span>
-      {category !== "DOING" && (
-        <button onClick={() => onClick("DOING")}>Doing</button>
-      )}
-      {category !== "TO_DO" && (
-        <button onClick={() => onClick("TO_DO")}>To Do</button>
-      )}
-      {category !== "DONE" && (
-        <button onClick={() => onClick("DONE")}>Done</button>
-      )}
-    </li>
-  );
-}
-export default ToDo;
-
-{
-  /* import React from "react";
+import React from "react";
 import { useSetRecoilState } from "recoil";
 import { IToDo, toDoState } from "../atoms";
+
+const food = ["pizza", "mango", "kimchi", "kimbab"];
 
 function ToDo({ text, category, id }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
@@ -34,6 +10,16 @@ function ToDo({ text, category, id }: IToDo) {
     const {
       currentTarget: { name },
     } = event;
+    setToDos((oldToDos) => {
+      const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+      const oldToDo = oldToDos[targetIndex];
+      const newToDo = { text, id, category: name as any };
+      return [
+        ...oldToDos.slice(0, targetIndex),
+        newToDo,
+        ...oldToDos.slice(targetIndex + 1),
+      ];
+    });
   };
   return (
     <li>
@@ -57,5 +43,4 @@ function ToDo({ text, category, id }: IToDo) {
   );
 }
 
-export default ToDo; */
-}
+export default ToDo;
